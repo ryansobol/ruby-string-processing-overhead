@@ -1,0 +1,97 @@
+Ruby String processing overhead release 0.1.0 (July 10, 2010)
+=============================================================
+
+Copyright (c) 2010 Ryan Sobol. Licensed under the MIT license.  Please see the {file:LICENSE} for more information.
+
+**Source Code**: [http://github.com/ryansobol/ruby-string-processing-overhead](http://github.com/ryansobol/ruby-string-processing-overhead)  
+**Bug Tracker**: [http://github.com/ryansobol/ruby-string-processing-overhead/issues](http://github.com/ryansobol/ruby-string-processing-overhead/issues)  
+**Wiki**: [http://wiki.github.com/ryansobol/ruby-string-processing-overhead](http://wiki.github.com/ryansobol/ruby-string-processing-overhead)  
+
+WHAT'S NEW?
+-----------
+
+  * First release
+
+SYNOPSIS
+--------
+
+**Tests the overhead of single-quoted versus double-quoted ruby Strings.** Each subsequent test increases the size of the String's value.
+
+FEATURES
+--------
+
+  * Compares the performance of single-quoted Strings vs double-quoted Strings
+  * Allows declarative tweaking of the:
+    * Test String and it's encoding (defaults to UTF-8)
+    * Starting, maximum, and increment step byte sizes
+    * Total iterations, and total passes
+
+
+REQUIREMENTS
+------------
+
+**Required dependencies**
+
+  * [Ruby](http://www.ruby-lang.org/) 1.9.1
+  * [Better Benchmark](http://github.com/Pistos/better-benchmark) 0.7.0
+  * [RSRuby](http://github.com/alexgutteridge/rsruby) 0.5.1.1
+  * [R](http://cran.cnr.Berkeley.edu/) 2.11.1
+
+INSTALLING
+----------
+
+Follow the installation instructions for Better Benchmark, R, and RSRuby.  Then install this test script by cloning the git repository.
+
+    $ git clone http://github.com/ryansobol/ruby-string-processing-overhead.git
+
+**NOTE:**  Once the test script is installed, the `ENV['R_HOME']` environment variable may need tweaking.
+
+USAGE
+-----
+
+    $ ruby string-overhead-variable-stringlen.rb
+
+FINDINGS
+--------
+
+### Assumptions
+
+  * Testing against ruby 1.9.1p378 with UTF-8 encoded Strings
+
+### Results
+
+  * 1-byte through 20-byte Strings can yield [small, yet statistically significant performance gains for double-quoted Strings](http://gist.github.com/470786).
+  * 20-byte through 400-byte Strings can yield [statistically insignificant performance gains for either double or single-quoted Strings](http://gist.github.com/470784).
+  * 400-byte through 1000-byte Strings can yield [small, yet statistically significant performance gains for single-quoted Strings](http://gist.github.com/470852).
+  
+### Conclusion
+
+  * Feel free to use **double-quoted Strings in your everyday practice**;  for code-bases that *DO NOT*  utilize *tens of thousands of Strings*, there is **no significant difference** between the performance of single and double-quoted Strings.
+
+  * For code-bases that utilize *tens of thousands of Strings*, **double-quoted** Strings can yield better performance if the Strings are approximately **less than 20 bytes**.
+  * For code-bases that utilize *tens of thousands of Strings*, **single-quoted** Strings can yield better performance if the Strings are approximately **more than 400 bytes**.
+
+MOTIVATION
+----------
+
+Inspired by the article ["Ruby String Processing Overhead"](http://www.breakingpointsystems.com/community/blog/ruby-string-processing-overhead/)
+
+REPORTING ISSUES
+----------------
+
+Not behaving like you expect it should?  Please forgive me!  Would you take a moment to shed light on my negligence over at the [Issue Tracker](http://github.com/ryansobol/ruby-string-processing-overhead/issues)?  Here's a **Pro Tip** -- you can read through existing issues and vote for which issues you'd like to see resolved first!
+
+Thank you for taking the time to help.
+
+CONTRIBUTING
+------------
+
+Patches are always welcome and appreciated!  The process is straight-forward for contributing your work back to the source:
+
+* Fork the project -- may I suggest [Github](http://www.github.com)?
+* Make your feature addition or bug fix.
+* Please do not casually alter files in the project root. (e.g. LICENSE, README.mdown, etc.)
+* Commit and publish your the change-set.
+* Send me a pull request. 
+
+Again, thank you for taking the time to help.
